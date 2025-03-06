@@ -1,0 +1,11 @@
+form{
+    display: flex;
+}
+
+input {
+    width: 80%;
+}
+
+button {
+    width: 60%;
+}
