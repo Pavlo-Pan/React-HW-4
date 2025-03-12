@@ -3,11 +3,11 @@ form {
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    margin-bottom: 50px;
+    
 }
 
 form select {
-    width: 60%;
+    width: 20%;
     padding: 16px;
     border-radius: 30px;
     background-color: #89dc0d;
@@ -16,4 +16,5 @@ form select {
 
 form h2{
     padding: 5px 20px;
+    color: #115008;
 }

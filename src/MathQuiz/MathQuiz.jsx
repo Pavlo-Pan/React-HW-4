@@ -1,29 +1,31 @@
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Answer from './Answer/Answer';
-
 import styles from './MathQuiz.module.css';
 
+const getRandomNumber = () => Math.floor(Math.random() * 11);
+
 const MathQuiz = () => {
+  const [points, setPoints] = useState(0);
+  const [numbers, setNumbers] = useState({ a: getRandomNumber(), b: getRandomNumber() });
 
-    const [points, setPoints] = useState(0);
+  const updatePoints = useCallback((correct) => {
+    setPoints(prev => Math.max(0, prev + (correct ? 1 : -1)));
+    setNumbers({ a: getRandomNumber(), b: getRandomNumber() });
+  }, []);
 
-    const updatePoints = (newPoint) => {
-        setPoints(prevPoints => prevPoints + newPoint)
-    };
+  useEffect(() => {
+    if (points > 0 && points % 10 === 0) {
+      alert(`Вы решили правильно ${points} задач!`);
+    }
+  }, [points]);
 
-    const getRandomNumber = () => Math.floor(Math.random() * 10) + 1;
-
-    const a = getRandomNumber();
-    const b = getRandomNumber();
-
-
-    return (
-        <div className={styles.container}>
-            <p>Ваши очки: {points}</p>
-            <p>{a} + {b} = ?</p>
-            <Answer updatePoints={updatePoints} a={a} b={b} />
-        </div>
-    );
+  return (
+    <div className={styles.container}>
+      <p>Ваши очки: {points}</p>
+      <p>{numbers.a} + {numbers.b} = ?</p>
+      <Answer updatePoints={updatePoints} a={numbers.a} b={numbers.b} />
+    </div>
+  );
 };
 
 export default MathQuiz;
